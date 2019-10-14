@@ -129,9 +129,9 @@ export default {
     return {
       index: 0,
       array: ['简单', '中等', '困难'], // 难度选择列表
-      easyDisplay: true, //选择简单难度
+      easyDisplay: true, // 选择简单难度
       mediumDisplay: false, // 选择中等难度
-      hardDisplay: false //选择困难难度
+      hardDisplay: false // 选择困难难度
       // urls: []       // 链接
       // subjects: []   // 项目
     }

@@ -8,7 +8,7 @@
         </view>
       </view>
     </picker>
-    <form>
+    <form style="width: 80%;">
       <view class="fb-mobile">
         <view class="label">主题</view>
         <view class="mobile-box">
@@ -74,7 +74,7 @@ page{
 }
 
 .fb-body{
-  width: 85%;
+  /* width: 85%; */
   background: #fff;
   height: 374rpx;
   margin-top: 50rpx;
@@ -107,7 +107,7 @@ page{
 .fb-mobile{
   margin-top: 40rpx;
   height: 180rpx;
-  width: 90%;
+  /* width: 90%; */
 }
 
 .fb-mobile .mobile-box{
