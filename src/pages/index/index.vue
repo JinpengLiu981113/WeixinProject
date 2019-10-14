@@ -1,17 +1,24 @@
 <template>
   <div @click="clickHandle">
     <!-- 改成模板使用 -->
+    <!--default模式-->
     <div class="regular-mode" :style="{'left': leftStart}">
+      <!-- 设置区域 -->
       <div class="settings-area">
+        <!-- 设置按钮 -->
         <img class="settings-img" src="/static/images/settings.png" mode="aspectFit" @click="openSettings" />
       </div>
+      <!-- 显示排名区域 -->
       <div class="ranking-area">
+        <!-- 显示排名按钮 -->
         <img class="ranking-img" src="/static/images/leaderboard-80.png" mode="aspectFit" @click="openRanking" />
       </div>
+      <!-- 排名区 -->
       <div class="bulletin-area" @click="openNews">
         <img class="bulletin-img" src="/static/images/horn.png" mode="aspectFit" />
         <p class="today-news">今日公告:{{ news }}</p>
       </div>
+      <!-- 显示学习时间 -->
       <div class="infomation-area">
         <p style="line-height: 3em; text-align: center;">已经学习</p>
         <p style="text-align: center;">
@@ -19,6 +26,7 @@
           <span style="font-size: 0.8em;">天</span>
         </p>
       </div>
+      <!-- 学前测试 -->
       <div class="test-area" @click="openTest">
         <img src="/static/images/th.jpg"/>
         <div style="position: absolute; height: 4em; margin: 0.5em 0 0.5em 0; text-align: center; width: 100%;">
@@ -26,20 +34,25 @@
           <p class="text2">何不来测试一下自己的水平？</p>
         </div>
       </div>
+      <!-- 功能区 -->
       <div class="choose-area">
+        <!-- 参加学习按钮 -->
         <div class="choice" @click="gotoStudy">
           <img src="/static/images/teacher.png" mode="aspectFit" />
           <p class="choice-text text1">学习</p>
         </div>
+        <!-- 参加答题按钮 -->
         <div class="choice" @click="gotoExercise">
           <img src="/static/images/test.png" mode="aspectFit" />
           <p class="choice-text text2">答题</p>
         </div>
+        <!-- 参加比赛按钮 -->
         <div class="choice" @click="gotoContest">
           <img src="/static/images/match.png" mode="aspectFit" />
           <p class="choice-text text3">比赛</p>
         </div>
       </div>
+      <!-- 公式助记区域 -->
       <div class="memory-area">
         <div class="formula">
           <p style="text-indent: 1em;">公式助记</p>
@@ -54,6 +67,7 @@
         </div> -->
       </div>
     </div>
+    <!-- 设置区域 -->
     <div class="settings-mode" v-show="settingsDisplay" style="width: 70%; position: absolute;">
       <!-- <img class="settings" src="" mode="aspectFit" /> -->
       <input type="button" value="设置时间" />
@@ -183,12 +197,12 @@
 export default {
   data () {
     return {
-      news: 'Hello miniprograme',
-      formula: '(x+1)(x-1)=x^2-1',
-      settingsDisplay: false,
-      rankingDisplay: false,
-      leftStart: '0',
-      openLeft: false
+      news: 'Hello miniprograme', // 消息显示
+      formula: '(x+1)(x-1)=x^2-1', // 公式助记区的公式
+      settingsDisplay: false, // 是否显示设置区
+      rankingDisplay: false, // 是否显示排名区域
+      leftStart: '0', // 控制default界面位置
+      openLeft: false // 是否已经打开左侧设置区
     }
   },
 
@@ -197,20 +211,25 @@ export default {
   // },
 
   methods: {
+    // 打开设置区方法
     openSettings () {
       if (this.openLeft) {
+        // 关闭设置区
         this.settingsDisplay = false
         this.leftStart = '0'
         this.openLeft = false
       } else {
+        // 打开设置区，把default
         this.settingsDisplay = true
         this.leftStart = '70%'
         this.openLeft = true
       }
     },
+    // 连接到学习界面
     gotoStudy () {
       mpvue.navigateTo({url: '/pages/study/main'})
     },
+    // 连接到练习界面
     gotoExercise () {
       mpvue.navigateTo({url: '/pages/class/main'})
     }

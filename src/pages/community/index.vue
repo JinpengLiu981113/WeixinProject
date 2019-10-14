@@ -4,7 +4,7 @@
       <view class="picker">
         <view class="fb-type">
           <view class="type-label">{{array[index]}}</view>
-          <image class="type-icon" src="/image/down.png"></image>
+          <image class="type-icon" src="/static/images/down.png"></image>
         </view>
       </view>
     </picker>
@@ -13,7 +13,7 @@
         <view class="label">主题</view>
         <view class="mobile-box">
           <input class="mobile" placeholder="请输入题号或者简要描述题意" :value="inputTxt">
-          <image class="clear-icon" src="/image/del.png"></image>
+          <image class="clear-icon" src="/static/images/del.png"></image>
           <button class='clear-btn' plain="true" hover-class="none" bindtap="clearblock">
           </button>
         </view>
@@ -28,7 +28,7 @@
         <view class="label">你的联系方式(选填，方便大家与你交流)</view>
         <view class="mobile-box">
           <input class="mobile" maxlength="20" placeholder="请输入您的QQ、微信或者手机号" :value="inputTxt" confirm-type ="send" />
-          <image class="clear-icon" src="/image/del.png"></image>
+          <image class="clear-icon" src="/static/images/del.png"></image>
           <button class='clear-btn' plain="true" hover-class="none" bindtap="clearblock"></button>
         </view>
       </view>
