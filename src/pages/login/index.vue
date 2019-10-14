@@ -42,7 +42,7 @@
     </view>
     <view style="height:10rpx;background: #eee;width:100%;"></view>
     <view class="my-item">
-      <navigator url="/pages/comunity/comunity" hover-class="navigator-hover">我的社区</navigator>
+      <navigator url="/pages/community/main" hover-class="navigator-hover">我的社区</navigator>
     </view>
     <view class="my-item">
       <navigator url="/pages/asset/index" hover-class="navigator-hover">我的公告</navigator>

@@ -1,8 +1,10 @@
 <template>
   <div>
+    <!-- 知识点学习难度显示结构（表头） -->
     <div class="title">
       <p class="title-text">十以内加法-简单</p>
     </div>
+    <!-- 学习公式数量提示结构 -->
     <div class="learning-info">
       <p class="info1">本次即将学习</p>
       <p class="info2">
@@ -10,9 +12,11 @@
         <span style="font-size: 0.8em;">个公式</span>
       </p>
     </div>
+    <!-- 公式显示结构 -->
     <div class="learning-content">
       <p v-for="formula in formulas" class="formula">{{formula}}</p>
     </div>
+    <!-- 进行跳转按钮结构 -->
     <div class="start-learning" @click="startLearning">
       <div class="button">
         <p class="button-value">我学会了</p>
@@ -66,10 +70,11 @@
 // mpvue.prototype.$http = axios
 
 export default {
+  // 学习界面所需的数据列表
   data () {
     return {
       data: null,
-      formulas: [
+      formulas: [ // 公式列表
         '0 + 0 = 0',
         '0 + 1 = 1',
         '0 + 2 = 2',
@@ -80,6 +85,7 @@ export default {
       number: this.getJsonLength(this.formulas)
     }
   },
+  // 控制函数集合
   methods: {
     getJsonLength (jsonData) {
       var jsonLength = 0
@@ -90,6 +96,7 @@ export default {
       }
       return jsonLength
     },
+    // 跳转到学习页面
     startLearning () {
       mpvue.navigateTo({url: '/pages/exam/main'})
     }
