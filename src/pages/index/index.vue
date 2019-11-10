@@ -21,13 +21,20 @@
       <!-- 显示学习时间 -->
       <div class="infomation-area">
         <p style="line-height: 3em; text-align: center;">已经学习</p>
-        <p style="text-align: center;">
-          <span style="font-size: 3em; color: red;">xxx</span>
-          <span style="font-size: 0.8em;">天</span>
-        </p>
+        <div style="justify-content: center; display: flex;">
+          <p style="text-align: center;">
+            <span style="font-size: 3em; color: red;">{{learningDays}}</span>
+            <span style="font-size: 0.8em;">天</span>
+          </p>
+          <div class="calendar-div" style="width: 3em; right: 3em; height: 5em; position: absolute;" @click="checkLearned">
+            <img style="width: 3em; height: 4em; position: absolute;" class="calendar-img" src="/static/images/calendar-80-1.png" mode="aspectFit">
+            <p style="position: absolute; text-align: center; line-height: 4em; z-index: ; width: inherit;">{{dateToday}}</p>
+            <p style="font-size: 0.5em; text-align: center; margin-top: 5.5em;"><span>点击</span><br/><span>学习/打卡</span></p>
+          </div>
+        </div>
       </div>
       <!-- 学前测试 -->
-      <div class="test-area" @click="openTest">
+      <div class="test-area" @click="gotoExam">
         <img src="/static/images/th.jpg"/>
         <div style="position: absolute; height: 4em; margin: 0.5em 0 0.5em 0; text-align: center; width: 100%;">
           <p class="text1">对自己满怀信心？</p>
@@ -70,7 +77,7 @@
     <!-- 设置区域 -->
     <div class="settings-mode" v-show="settingsDisplay" style="width: 70%; position: absolute;">
       <!-- <img class="settings" src="" mode="aspectFit" /> -->
-      <input type="button" value="设置时间" />
+      <input style="height: 2em; line-height: 2em; font-weight: 200;" type="button" value="设置学习时间" />
     </div>
     <!-- <div class="ranking-mode" v-show="rankingShow">
     </div> -->
@@ -197,12 +204,16 @@
 export default {
   data () {
     return {
+      dateToday: 10,
+      learningDays: 11,
       news: 'Hello miniprograme', // 消息显示
       formula: '(x+1)(x-1)=x^2-1', // 公式助记区的公式
       settingsDisplay: false, // 是否显示设置区
       rankingDisplay: false, // 是否显示排名区域
       leftStart: '0', // 控制default界面位置
-      openLeft: false // 是否已经打开左侧设置区
+      openLeft: false, // 是否已经打开左侧设置区
+      learned: true,
+      haschecked: false
     }
   },
 
@@ -232,6 +243,19 @@ export default {
     // 连接到练习界面
     gotoExercise () {
       mpvue.navigateTo({url: '/pages/class/main'})
+    },
+    gotoExam () {
+      mpvue.navigateTo({url: '/pages/exam/main'})
+    },
+    checkLearned () {
+      if (!this.haschecked) {
+        this.haschecked = true
+        if (this.learned) {
+          this.learningDays += 1
+        } else {
+          this.gotoStudy()
+        }
+      }
     }
     // gotoContest () {
     //   mpvue.navigateTo("/pages/contest/main");

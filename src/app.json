@@ -8,7 +8,8 @@
     "pages/class/main",
     "pages/exam/main",
     "pages/login/main",
-    "pages/community/main"
+    "pages/community/main",
+    "pages/result/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

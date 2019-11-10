@@ -9,7 +9,7 @@
       </view>
     </view>
     <view class="color-bar"></view>
-    <button class="next-unit-button">下一题</button>
+    <button class="next-unit-button" @click="checkResults">下一题</button>
   </view>
 </template>
 
@@ -76,6 +76,11 @@ export default {
         '7 + 3 =',
         '2 + 5 ='
       ]
+    }
+  },
+  methods: {
+    checkResults () {
+      mpvue.navigateTo({url: '/pages/result/main'})
     }
   }
 }
