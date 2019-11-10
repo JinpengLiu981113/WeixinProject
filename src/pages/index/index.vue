@@ -6,15 +6,15 @@
       <!-- 设置区域 -->
       <div class="settings-area">
         <!-- 设置按钮 -->
-        <img class="settings-img" src="/static/images/settings.png" mode="aspectFit" @click="openSettings" />
+        <img class="settings-img" src="/static/images/settings.png" mode="aspectFit" @click="openSettings"/>
       </div>
       <!-- 显示排名区域 -->
       <div class="ranking-area">
         <!-- 显示排名按钮 -->
-        <img class="ranking-img" src="/static/images/leaderboard-80.png" mode="aspectFit" @click="openRanking" />
+        <img class="ranking-img" src="/static/images/leaderboard-80.png" mode="aspectFit" @click="openRanking"/>
       </div>
       <!-- 排名区 -->
-      <div class="bulletin-area" @click="openNews">
+      <div class="bulletin-area" @click="gotoBulletin">
         <img class="bulletin-img" src="/static/images/horn.png" mode="aspectFit" />
         <p class="today-news">今日公告:{{ news }}</p>
       </div>
@@ -22,24 +22,27 @@
       <div class="infomation-area">
         <p style="line-height: 3em; text-align: center;">已经学习</p>
         <div style="justify-content: center; display: flex;">
-          <p style="text-align: center;">
+          <p v-if="notLoggedin" style="font-size: 0.8em; text-align: center; padding-top: 2em;">登陆以查看学习天数</p>
+          <p v-else style="text-align: center;">
             <span style="font-size: 3em; color: red;">{{learningDays}}</span>
             <span style="font-size: 0.8em;">天</span>
           </p>
           <div class="calendar-div" style="width: 3em; right: 3em; height: 5em; position: absolute;" @click="checkLearned">
-            <img style="width: 3em; height: 4em; position: absolute;" class="calendar-img" src="/static/images/calendar-80-1.png" mode="aspectFit">
+            <img style="width: 3em; height: 4em; position: absolute;" class="calendar-img" src="/static/images/calendar-80-1.png" mode="aspectFit"/>
             <p style="position: absolute; text-align: center; line-height: 4em; z-index: ; width: inherit;">{{dateToday}}</p>
-            <p style="font-size: 0.5em; text-align: center; margin-top: 5.5em;"><span>点击</span><br/><span>学习/打卡</span></p>
+            <p v-if="notLoggedin" class="notLogin" style="font-size: 0.5em; text-align: center; margin-top: 5.5em;">请先登录</p>
+            <p v-else style="font-size: 0.5em; text-align: center; margin-top: 5.5em;"><span>点击</span><br/><span>学习/打卡</span></p>
           </div>
         </div>
       </div>
       <!-- 学前测试 -->
       <div class="test-area" @click="gotoExam">
-        <img src="/static/images/th.jpg"/>
-        <div style="position: absolute; height: 4em; margin: 0.5em 0 0.5em 0; text-align: center; width: 100%;">
-          <p class="text1">对自己满怀信心？</p>
-          <p class="text2">何不来测试一下自己的水平？</p>
-        </div>
+        <img src="/static/images/th.jpg" />
+          <p v-if="notLoggedin" style="position: absolute; color: white; padding: 1.2em;">请先登录再测试</p>
+          <div v-else style="position: absolute; height: 4em; margin: 0.5em 0 0.5em 0; text-align: center; width: 100%;">
+            <p class="text1" style="color: white;">对自己满怀信心？</p>
+            <p class="text2" style="color: white;">何不来测试一下自己的水平？</p>
+          </div>
       </div>
       <!-- 功能区 -->
       <div class="choose-area">
@@ -61,7 +64,11 @@
       </div>
       <!-- 公式助记区域 -->
       <div class="memory-area">
-        <div class="formula">
+        <div v-if="notLoggedin">
+          <p style="text-indent: 1em;">公式助记</p>
+          <p style="text-align: center; padding: 1em;">登录以进行公式记忆</p>
+        </div>
+        <div v-else class="formula">
           <p style="text-indent: 1em;">公式助记</p>
           <p style="text-align: center; padding:1em; font-size: 1.2em; ">{{ formula }}</p>
           <div class="button-area">
@@ -71,7 +78,7 @@
         </div>
         <!-- <div class="remember" style="display: none;">
           <p>你真聪明</p>
-        </div> -->
+        </div>-->
       </div>
     </div>
     <!-- 设置区域 -->
@@ -80,7 +87,7 @@
       <input style="height: 2em; line-height: 2em; font-weight: 200;" type="button" value="设置学习时间" />
     </div>
     <!-- <div class="ranking-mode" v-show="rankingShow">
-    </div> -->
+    </div>-->
   </div>
 </template>
 
@@ -99,7 +106,7 @@
   position: absolute;
   z-index: 5;
 }
-.regular-mode{
+.regular-mode {
   /* left: 70%; settings mode */
   /* left: -70%; ranking mode */
   width: 100%;
@@ -142,17 +149,17 @@
   width: 100%;
   height: 4em;
 }
-.test-area img{
+.test-area img {
   width: 100%;
   height: 4em;
   position: absolute;
 }
-.test-area .text1{
+.test-area .text1 {
   /* position: absolute;
   padding: 0.5em; */
   /* padding: 1%; */
 }
-.test-area .text2{
+.test-area .text2 {
   /* position: absolute;
   padding: 0.5em; */
   /* top:  */
@@ -190,23 +197,22 @@
   display: flex;
   justify-content: space-around;
 }
-.memory-area .button-area .memory-button{
+.memory-area .button-area .memory-button {
   line-height: 1.5em;
   font-size: 0.8em;
   height: 1.5em;
-
 }
 </style>
 
 <script>
 // import card from "@/components/card";
-
 export default {
   data () {
     return {
+      notLoggedin: false,
       dateToday: 10,
       learningDays: 11,
-      news: 'Hello miniprograme', // 消息显示
+      news: 'Hello miniprogram', // 消息显示
       formula: '(x+1)(x-1)=x^2-1', // 公式助记区的公式
       settingsDisplay: false, // 是否显示设置区
       rankingDisplay: false, // 是否显示排名区域
@@ -238,24 +244,35 @@ export default {
     },
     // 连接到学习界面
     gotoStudy () {
-      mpvue.navigateTo({url: '/pages/study/main'})
+      if (!this.notLoggedin) {
+        mpvue.navigateTo({url: '/pages/study/main'})
+      }
     },
     // 连接到练习界面
     gotoExercise () {
-      mpvue.navigateTo({url: '/pages/class/main'})
+      if (!this.notLoggedin) {
+        mpvue.navigateTo({url: '/pages/class/main'})
+      }
     },
     gotoExam () {
-      mpvue.navigateTo({url: '/pages/exam/main'})
+      if (!this.notLoggedin) {
+        mpvue.navigateTo({url: '/pages/exam/main'})
+      }
     },
     checkLearned () {
-      if (!this.haschecked) {
-        this.haschecked = true
-        if (this.learned) {
-          this.learningDays += 1
-        } else {
-          this.gotoStudy()
+      if (!this.notLoggedin) {
+        if (!this.haschecked) {
+          this.haschecked = true
+          if (this.learned) {
+            this.learningDays += 1
+          } else {
+            this.gotoStudy()
+          }
         }
       }
+    },
+    gotoBulletin () {
+      mpvue.navigateTo({url: '/pages/bulletin/main'})
     }
     // gotoContest () {
     //   mpvue.navigateTo("/pages/contest/main");
