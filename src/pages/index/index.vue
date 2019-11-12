@@ -245,9 +245,13 @@ export default {
     wx.cloud.init()
   },
   onLoad () {
+    wx.cloud.database().collection('Notice').get({
+      success: res => {
+        this.news = res.data[0].data.title
+      }
+    })
     wx.cloud.database().collection('UserInfo').get({
       success: res => {
-        // console.log(JSON.stringify(res))
         this.learningDays = res.data[0].data.SignDate
       }
     })
@@ -284,17 +288,17 @@ export default {
         mpvue.navigateTo({url: '/pages/study/main'})
       }
     },
-    // 连接到练习界面
-    gotoExercise () {
-      if (!this.notLoggedin) {
-        mpvue.navigateTo({url: '/pages/class/main'})
-      }
-    },
-    gotoExam () {
-      if (!this.notLoggedin) {
-        mpvue.navigateTo({url: '/pages/exam/main'})
-      }
-    },
+    // // 连接到练习界面
+    // gotoExercise () {
+    //   if (!this.notLoggedin) {
+    //     mpvue.navigateTo({url: '/pages/study/main'})
+    //   }
+    // },
+    // gotoExam () {
+    //   if (!this.notLoggedin) {
+    //     mpvue.navigateTo({url: '/pages/exam/main'})
+    //   }
+    // },
     checkLearned () {
       if (!this.notLoggedin) {
         if (!this.haschecked) {

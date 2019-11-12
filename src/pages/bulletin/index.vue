@@ -45,7 +45,6 @@ export default {
     }
   },
   onLoad () {
-    // wx.cloud.init()
     wx.cloud.database().collection('Notice').get({
       success: res => {
         this.title = res.data[0].data.title
