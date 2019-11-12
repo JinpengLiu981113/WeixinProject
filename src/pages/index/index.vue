@@ -73,11 +73,11 @@
           <p style="text-indent: 1em;">公式助记</p>
           <!-- <p style="text-align: center; padding:1em; font-size: 1.2em; ">{{ formula }}</p> -->
           <div style="display: flex; justify-content: center;">
-            <img style="width: 5em; height: 3em;" :src="myUrl" alt="数学公式" />
+            <img style="width: 10em; height: 4em;" :src="myUrl" alt="数学公式" />
           </div>
           <div class="button-area">
             <input class="memory-button" type="button" value="查看公式" />
-            <input class="memory-button" type="button" value="换一个" style="background-color: #11dd00;"/>
+            <input class="memory-button" type="button" value="换一个" style="background-color: #11dd00;" @click="changeFormula"/>
           </div>
         </div>
         <!-- <div class="remember" style="display: none;">
@@ -227,19 +227,36 @@ export default {
   data () {
     return {
       notLoggedin: false,
-      dateToday: 10,
+      dateToday: (new Date()).getDate(),
       learningDays: 11,
       news: 'Hello miniprogram', // 消息显示
-      formula: '$$(x+1)(x-1)=x^{2}-1$$', // 公式助记区的公式
       settingsDisplay: false, // 是否显示设置区
       rankingDisplay: false, // 是否显示排名区域
       leftStart: '0', // 控制default界面位置
       openLeft: false, // 是否已经打开左侧设置区
-      learned: true,
+      learned: false,
       haschecked: false,
-      result: '',
-      myUrl: 'https://latex.codecogs.com/svg.latex?' + encodeURIComponent('$\\sqrt{x^{2}+y^{2}}$')
+      myUrl: '',
+      number: 0,
+      formulas: '' // 公式助记区的公式
     }
+  },
+  created () {
+    wx.cloud.init()
+  },
+  onLoad () {
+    wx.cloud.database().collection('UserInfo').get({
+      success: res => {
+        // console.log(JSON.stringify(res))
+        this.learningDays = res.data[0].data.SignDate
+      }
+    })
+    wx.cloud.database().collection('Knowledge').get({
+      success: res => {
+        this.formulas = res.data
+        this.myUrl = 'https://latex.codecogs.com/svg.latex?' + encodeURIComponent(res.data[this.number].data.know1)
+      }
+    })
   },
 
   // components: {
@@ -293,9 +310,17 @@ export default {
     gotoBulletin () {
       mpvue.navigateTo({url: '/pages/bulletin/main'})
     },
-    myFunction () {
-      this.result = encodeURIComponent(this.myUrl)
+    changeFormula () {
+      this.number += 1
+      if (this.number >= 10) {
+        this.number = 0
+      }
+      this.myUrl = 'https://latex.codecogs.com/svg.latex?' + encodeURIComponent(this.formulas[this.number].data.know1)
     }
+    // myFunction () {
+    //   this.result = encodeURIComponent(this.myUrl)
+    // },
+
     // gotoContest () {
     //   mpvue.navigateTo("/pages/contest/main");
     // },

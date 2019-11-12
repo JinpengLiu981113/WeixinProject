@@ -7,7 +7,7 @@
       <!-- <p class="time-para">{{queryRes}}</p> -->
       <div class="sep-div"></div>
     </div>
-    <div v-html="content"></div>
+    <div style="font-size: 0.9em; text-indent: 2em;" v-html="context"></div>
   </div>
 </template>
 
@@ -39,23 +39,18 @@
 export default {
   data () {
     return {
-      title: 'abcdef',
-      time: '2017.0.0.1',
-      content: '<p style="color: red;">你好</p>',
-      queryRes: ''
+      title: '',
+      time: '',
+      context: ''
     }
   },
   onLoad () {
-    wx.cloud.init()
-    wx.cloud.database().collection('Answer').get({
+    // wx.cloud.init()
+    wx.cloud.database().collection('Notice').get({
       success: res => {
-        this.setData({
-          queryRes: JSON.stringify(res.data, null, 2)
-        })
-        console.log('数据库查询成功: ', res)
-      },
-      fail: err => {
-        console.error('数据库查询失败：', err)
+        this.title = res.data[0].data.title
+        this.time = JSON.stringify(res.data[0].data.date)
+        this.context = res.data[0].data.context
       }
     })
   }
