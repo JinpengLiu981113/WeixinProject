@@ -11,7 +11,8 @@
     "pages/community/main",
     "pages/result/main",
     "pages/bulletin/main",
-    "pages/comment/main"
+    "pages/comment/main",
+    "pages/Answer/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

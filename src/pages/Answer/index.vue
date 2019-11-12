@@ -1,4 +1,5 @@
 <template>
+  <view>
     <form style="width: 80%;">
       <view class="fb-mobile">
         <view class="label">您回答的问题的编号是：</view>
@@ -7,6 +8,7 @@
           <button class='clear-btn' plain="true" hover-class="none" bindtap="clearblock">
           </button> -->
         </view>
+      </view>
 
       <view class="fb-mobile">
         <view class="label">您回答的问题的主题是：</view>
