@@ -6,7 +6,7 @@
 > 
 > 使用美团开源的mpvue框架，基于vue.js进行前端开发，使用微信云开发进行后端开发
 > 
-> 使用https://latex.codecogs.com/[https://latex.codecogs.com/] 进行数学公式的生成以及渲染
+> 使用[https://latex.codecogs.com/](https://latex.codecogs.com/)进行数学公式的生成以及渲染
 
 本学习应用具有以下几个特色：
 - 学前测试，掌握儿童学习阶段与知识水平
