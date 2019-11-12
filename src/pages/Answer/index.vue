@@ -1,21 +1,23 @@
 <template>
-  <view>
+  <div class="container">
     <form style="width: 80%;">
       <view class="fb-mobile">
         <view class="label">您回答的问题的编号是：</view>
         <view class="mobile-box">
-          <!-- <input class="mobile" placeholder="为什么1+1等于2" :value="inputTxt">
+          <input class="mobile" :value="inputTxt">
+          <img class="clear-icon" src="/static/images/del.png">
           <button class='clear-btn' plain="true" hover-class="none" bindtap="clearblock">
-          </button> -->
+          </button>
         </view>
       </view>
 
       <view class="fb-mobile">
         <view class="label">您回答的问题的主题是：</view>
         <view class="mobile-box">
-          <!-- <input class="mobile" placeholder="为什么1+1等于2" :value="inputTxt">
+          <input class="mobile" :value="inputTxt">
+          <img class="clear-icon" src="/static/images/del.png">
           <button class='clear-btn' plain="true" hover-class="none" bindtap="clearblock">
-          </button> -->
+          </button>
         </view>
       </view>
 
@@ -28,13 +30,13 @@
         <view class="label">你的联系方式(选填，方便大家与你交流)</view>
         <view class="mobile-box">
           <input class="mobile" maxlength="20" placeholder="请输入您的QQ、微信或者手机号" :value="inputTxt" confirm-type ="send" />
-          <image class="clear-icon" src="/static/images/del.png"></image>
+          <img class="clear-icon" src="/static/images/del.png">
           <button class='clear-btn' plain="true" hover-class="none" bindtap="clearblock"></button>
         </view>
       </view>
-      <button class="fb-btn">提交</button>
     </form>
-  </view>
+    <button class="fb-btn">提交</button>
+  </div>
 </template>
 
 <style scoped>
@@ -170,6 +172,7 @@ page{
   border-radius: 0;
   color: #fff;
   font-size: 28rpx;
+  z-index: 5;
 }
 
 .label-content{

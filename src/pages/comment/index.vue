@@ -1,4 +1,5 @@
 <template>
+  <!-- 需要提取输入框中的数据然后提交到数据库中 -->
   <view class="container">
     <picker bindchange="bindPickerChange" :value="index" :range="array">
       <view class="picker">

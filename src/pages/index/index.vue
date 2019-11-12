@@ -1,4 +1,5 @@
 <template>
+  <!-- 得到用户信息数据以及一些公式 -->
   <div @click="clickHandle">
     <!-- 改成模板使用 -->
     <!--default模式-->
@@ -70,7 +71,10 @@
         </div>
         <div v-else class="formula">
           <p style="text-indent: 1em;">公式助记</p>
-          <p style="text-align: center; padding:1em; font-size: 1.2em; ">{{ formula }}</p>
+          <!-- <p style="text-align: center; padding:1em; font-size: 1.2em; ">{{ formula }}</p> -->
+          <div style="display: flex; justify-content: center;">
+            <img style="width: 5em; height: 3em;" :src="myUrl" alt="数学公式" />
+          </div>
           <div class="button-area">
             <input class="memory-button" type="button" value="查看公式" />
             <input class="memory-button" type="button" value="换一个" style="background-color: #11dd00;"/>
@@ -204,6 +208,19 @@
 }
 </style>
 
+<script type="text/javascript"
+   src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML,http://myserver.com/MathJax/config/local/local.js">
+</script>
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ["\\(","\\)"]],
+    displayMath: [['$$','$$'], ["\\[","\\]"]]
+  }
+});
+</script>
+
 <script>
 // import card from "@/components/card";
 export default {
@@ -213,13 +230,15 @@ export default {
       dateToday: 10,
       learningDays: 11,
       news: 'Hello miniprogram', // 消息显示
-      formula: '(x+1)(x-1)=x^2-1', // 公式助记区的公式
+      formula: '$$(x+1)(x-1)=x^{2}-1$$', // 公式助记区的公式
       settingsDisplay: false, // 是否显示设置区
       rankingDisplay: false, // 是否显示排名区域
       leftStart: '0', // 控制default界面位置
       openLeft: false, // 是否已经打开左侧设置区
       learned: true,
-      haschecked: false
+      haschecked: false,
+      result: '',
+      myUrl: 'https://latex.codecogs.com/svg.latex?' + encodeURIComponent('$\\sqrt{x^{2}+y^{2}}$')
     }
   },
 
@@ -273,6 +292,9 @@ export default {
     },
     gotoBulletin () {
       mpvue.navigateTo({url: '/pages/bulletin/main'})
+    },
+    myFunction () {
+      this.result = encodeURIComponent(this.myUrl)
     }
     // gotoContest () {
     //   mpvue.navigateTo("/pages/contest/main");
@@ -287,5 +309,3 @@ export default {
   // }
 }
 </script>
-
-

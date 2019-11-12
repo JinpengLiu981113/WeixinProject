@@ -1,4 +1,5 @@
 <template>
+  <!-- 从后台得到做题结果以及题目答案 -->
   <div style="margin: 1%;">
     <div style="margin: 0.5em 0 0.5em 0; background-color: #efefef;">
       <p style="font-size: 1.5em; text-align: center; padding-bottom: 0.3em;">本次做题结果</p>
